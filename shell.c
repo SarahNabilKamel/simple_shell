@@ -51,7 +51,7 @@ int main()
             args[i] = NULL; 
 
             execve(args[0], args, NULL);
-            perror("execve");
+            perror("./shell");
             exit(1);
         }
         else
