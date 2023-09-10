@@ -37,7 +37,7 @@ int main()
         }
         else if (pid == 0)
         {
-            // Tokenize the command_line string
+            
             char* token = strtok(command_line, " ");
             char** args = malloc((COMMAND_MAX_LINE + 1) * sizeof(char*));
             int i = 0;
@@ -48,10 +48,10 @@ int main()
                 token = strtok(NULL, " ");
             }
 
-            args[i] = NULL; // Set the last element to NULL
+            args[i] = NULL; 
 
-            execvp(args[0], args);
-            perror("execvp");
+            execve(args[0], args, NULL);
+            perror("execve");
             exit(1);
         }
         else
@@ -60,6 +60,6 @@ int main()
         }
     }
 
-    free(command_line); // Free dynamically allocated memory
+    free(command_line); 
     return 0;
 }
