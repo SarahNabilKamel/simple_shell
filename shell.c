@@ -5,28 +5,27 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-#define COMMAND_MAX_LINE 1024
+#define COMMAND_MAX_LENGTH 1024
 
 int main()
 {
-    char* command_line = NULL;
-    size_t length = 0;
-    ssize_t read;
+    char *command = NULL;
+    size_t command_length = 0;
     pid_t pid;
+    int status;
 
     while (1)
     {
         printf("#cisfun$ ");
         fflush(stdout);
 
-        read = getline(&command_line, &length, stdin);
-
-        if (read == -1)
+        if (getline(&command, &command_length, stdin) == -1)
         {
             break;
         }
 
-        command_line[strcspn(command_line, "\n")] = 0;
+        
+        command[strcspn(command, "\n")] = '\0';
 
         pid = fork();
 
@@ -38,28 +37,30 @@ int main()
         else if (pid == 0)
         {
             
-            char* token = strtok(command_line, " ");
-            char** args = malloc((COMMAND_MAX_LINE + 1) * sizeof(char*));
-            int i = 0;
+            
+            char **args = malloc(sizeof(char *) * 2);
+            args[0] = command;
+            args[1] = NULL;
 
-            while (token != NULL)
+            
+            if (execve(command, args, NULL) == -1)
             {
-                args[i++] = token;
-                token = strtok(NULL, " ");
+                perror("./shell");
+                exit(1);
             }
-
-            args[i] = NULL; 
-
-            execve(args[0], args, NULL);
-            perror("./shell");
-            exit(1);
         }
         else
         {
-            wait(NULL);
+        
+            if (waitpid(pid, &status, 0) == -1)
+            {
+                perror("waitpid");
+                exit(1);
+            }
         }
     }
 
-    free(command_line); 
+    free(command);
+
     return 0;
 }
