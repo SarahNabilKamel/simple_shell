@@ -36,19 +36,22 @@ int main()
         }
         else if (pid == 0)
         {
-        
-            char *args[] = {command, NULL};
+            
+            
+            char **args = malloc(sizeof(char *) * 2);
+            args[0] = command;
+            args[1] = NULL;
 
             
             if (execve(command, args, NULL) == -1)
             {
-                perror("./shell");
+                perror("execve");
                 exit(1);
             }
         }
         else
         {
-            
+        
             if (waitpid(pid, &status, 0) == -1)
             {
                 perror("waitpid");
