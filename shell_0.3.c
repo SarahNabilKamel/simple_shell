@@ -38,6 +38,7 @@ int main()
         else if (pid == 0)
         {
         
+
             char* token = strtok(command_line, " ");
             char* command = token;
 
@@ -57,7 +58,7 @@ int main()
                 
                     char** args = malloc((COMMAND_MAX_LINE + 1) * sizeof(char*));
                     int i = 0;
-                    args[i++] = full_path;
+                    args[i++] = command;
 
                     while (token != NULL)
                     {
@@ -67,8 +68,8 @@ int main()
 
                     args[i] = NULL;
 
-                    execve(args[0], args, NULL);
-                    perror(args[0]);
+                    execve(full_path, args, NULL);
+                    perror(command);
                     exit(1);
                 }
 
@@ -76,13 +77,13 @@ int main()
                 path_token = strtok(NULL, ":");
             }
 
-        
+            
             fprintf(stderr, "%s: command not found\n", command);
             exit(1);
         }
         else
         {
-        
+            
             wait(NULL);
         }
     }
