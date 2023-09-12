@@ -43,9 +43,7 @@ int main()
             token = strtok(NULL, " ");
         }
         
-	
         args[i] = NULL;
-
 
         command = args[0];
         if (access(command, X_OK) == 0) {
