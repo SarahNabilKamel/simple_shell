@@ -1,79 +1,93 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
 #include <string.h>
+#include <unistd.h>
+#include <sys/types.h>
 #include <sys/wait.h>
 
-#define PROMPT ":) "
+#define COMMAND_MAX_LINE 1024
 
 int main()
 {
-    char* command = NULL;
-    size_t bufsize = 0;
+    char* command_line = NULL;
+    size_t length = 0;
+    ssize_t read;
+    pid_t pid;
 
-    while(1) 
+    while (1)
     {
-    
-    printf(PROMPT);
-    
+        printf(":) ");
+        fflush(stdout);
 
-    if(getline(&command, &bufsize, stdin) == -1) 
-    {
-    break;
-    }
-    
-    
-    command[strlen(command)-1] = '\0';
-    
-    
-    char *path = getenv("PATH");
-    char *paths[10];
-    char full_path[1024];
-    int i = 0;
-    
-    paths[0] = strtok(path, ":");
-    while(paths[i] != NULL) 
-    {
-    i++;
-    paths[i] = strtok(NULL, ":"); 
-    }
-    
-    for(int j = 0; j <= i; j++) 
-    {
-    strcpy(full_path, paths[j]);
-    strcat(full_path, "/");
-    strcat(full_path, command);
-    
-    if(access(full_path, X_OK) == 0)
-    {
-        break;
-    }
-    
-    }
-    
-    if(j > i) 
-    {
-    printf("Command not found: %s\n", command);
-    continue;
-    }
-    
-    
-    pid_t pid = fork();
-    if(pid == 0) 
-    {
-    execl(full_path, command, NULL);
-    exit(1); 
-    } else 
-    {
-    wait(NULL);
-    }
-    
-}
+        read = getline(&command_line, &length, stdin);
 
-if(command)  
-{
-    free(command);
-}
+        if (read == -1)
+        {
+            break;
+        }
 
-return 0;
+        command_line[strcspn(command_line, "\n")] = '\0';
+
+        pid = fork();
+
+        if (pid == -1)
+        {
+            perror("fork");
+            exit(1);
+        }
+        else if (pid == 0)
+        {
+            // Child process
+
+            char* token = strtok(command_line, " ");
+            char* command = token;
+
+            // Check if the command exists in the PATH
+            char* path = getenv("PATH");
+            char* path_token = strtok(path, ":");
+
+            while (path_token != NULL)
+            {
+                char* full_path = malloc(strlen(path_token) + strlen(command) + 2);
+                strcpy(full_path, path_token);
+                strcat(full_path, "/");
+                strcat(full_path, command);
+
+                if (access(full_path, X_OK) == 0)
+                {
+                    // Command exists, execute it
+                    char** args = malloc((COMMAND_MAX_LINE + 1) * sizeof(char*));
+                    int i = 0;
+                    args[i++] = full_path;
+
+                    while (token != NULL)
+                    {
+                        args[i++] = token;
+                        token = strtok(NULL, " ");
+                    }
+
+                    args[i] = NULL;
+
+                    execve(args[0], args, NULL);
+                    perror(args[0]);
+                    exit(1);
+                }
+
+                free(full_path);
+                path_token = strtok(NULL, ":");
+            }
+
+            // Command not found
+            fprintf(stderr, "%s: command not found\n", command);
+            exit(1);
+        }
+        else
+        {
+            // Parent process
+            wait(NULL);
+        }
+    }
+
+    free(command_line);
+    return 0;
 }
