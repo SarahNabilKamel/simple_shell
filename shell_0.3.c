@@ -37,12 +37,11 @@ int main()
         }
         else if (pid == 0)
         {
-            // Child process
-
+        
             char* token = strtok(command_line, " ");
             char* command = token;
 
-            // Check if the command exists in the PATH
+        
             char* path = getenv("PATH");
             char* path_token = strtok(path, ":");
 
@@ -55,7 +54,7 @@ int main()
 
                 if (access(full_path, X_OK) == 0)
                 {
-                    // Command exists, execute it
+                
                     char** args = malloc((COMMAND_MAX_LINE + 1) * sizeof(char*));
                     int i = 0;
                     args[i++] = full_path;
@@ -77,13 +76,13 @@ int main()
                 path_token = strtok(NULL, ":");
             }
 
-            // Command not found
+        
             fprintf(stderr, "%s: command not found\n", command);
             exit(1);
         }
         else
         {
-            // Parent process
+        
             wait(NULL);
         }
     }
