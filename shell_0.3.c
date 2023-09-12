@@ -28,21 +28,43 @@ int main()
 
         command_line[strcspn(command_line, "\n")] = '\0';
 
-        pid = fork();
+        char* token = strtok(command_line, " ");
+        char** args = malloc((COMMAND_MAX_LINE + 1) * sizeof(char*));
+        int i = 0;
 
-        if (pid == -1)
+        while (token != NULL)
         {
-            perror("fork");
-            exit(1);
+            args[i++] = token;
+            token = strtok(NULL, " ");
         }
-        else if (pid == 0)
+
+        args[i] = NULL;
+
+        
+        char* command = args[0];
+        if (access(command, X_OK) == 0) {
+            
+            pid = fork();
+
+            if (pid == -1)
+            {
+                perror("fork");
+                exit(1);
+            }
+            else if (pid == 0)
+            {
+                execve(command, args, NULL);
+                perror(command);
+                exit(1);
+            }
+            else
+            {
+                wait(NULL);
+            }
+        }
+        else
         {
-        
-
-            char* token = strtok(command_line, " ");
-            char* command = token;
-
-        
+            
             char* path = getenv("PATH");
             char* path_token = strtok(path, ":");
 
@@ -55,36 +77,38 @@ int main()
 
                 if (access(full_path, X_OK) == 0)
                 {
-                
-                    char** args = malloc((COMMAND_MAX_LINE + 1) * sizeof(char*));
-                    int i = 0;
-                    args[i++] = command;
+                    
+                    pid = fork();
 
-                    while (token != NULL)
+                    if (pid == -1)
                     {
-                        args[i++] = token;
-                        token = strtok(NULL, " ");
+                        perror("fork");
+                        exit(1);
+                    }
+                    else if (pid == 0)
+                    {
+                        execve(full_path, args, NULL);
+                        perror(command);
+                        exit(1);
+                    }
+                    else
+                    {
+                        wait(NULL);
                     }
 
-                    args[i] = NULL;
-
-                    execve(full_path, args, NULL);
-                    perror(command);
-                    exit(1);
+                    free(full_path);
+                    break;
                 }
 
                 free(full_path);
                 path_token = strtok(NULL, ":");
             }
 
-            
-            fprintf(stderr, "%s: command not found\n", command);
-            exit(1);
-        }
-        else
-        {
-            
-            wait(NULL);
+            if (path_token == NULL)
+            {
+               
+                fprintf(stderr, "%s: command not found\n", command);
+            }
         }
     }
 
