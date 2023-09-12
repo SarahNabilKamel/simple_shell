@@ -16,6 +16,11 @@ int main()
 
     while (1)
     {
+        char* token;
+        char* command;
+        char** args;
+        int i;
+
         printf(":) ");
         fflush(stdout);
 
@@ -28,22 +33,23 @@ int main()
 
         command_line[strcspn(command_line, "\n")] = '\0';
 
-        char* token = strtok(command_line, " ");
-        char** args = malloc((COMMAND_MAX_LINE + 1) * sizeof(char*));
-        int i = 0;
+        token = strtok(command_line, " ");
+        args = malloc((COMMAND_MAX_LINE + 1) * sizeof(char*));
+        i = 0;
 
         while (token != NULL)
         {
             args[i++] = token;
             token = strtok(NULL, " ");
         }
-
+        
+	
         args[i] = NULL;
 
-        
-        char* command = args[0];
+
+        command = args[0];
         if (access(command, X_OK) == 0) {
-            
+
             pid = fork();
 
             if (pid == -1)
@@ -64,7 +70,7 @@ int main()
         }
         else
         {
-            
+
             char* path = getenv("PATH");
             char* path_token = strtok(path, ":");
 
@@ -77,7 +83,7 @@ int main()
 
                 if (access(full_path, X_OK) == 0)
                 {
-                    
+
                     pid = fork();
 
                     if (pid == -1)
@@ -106,10 +112,12 @@ int main()
 
             if (path_token == NULL)
             {
-               
+
                 fprintf(stderr, "%s: command not found\n", command);
             }
         }
+
+        free(args);
     }
 
     free(command_line);
