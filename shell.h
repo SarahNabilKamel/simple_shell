@@ -13,5 +13,9 @@
 void prompt();
 ssize_t my_getline(char **lineptr, size_t *n, FILE *stream);
 void my_exec( char *command );
+void execwitharg( char *command );
+void prompt2();
+void exec3(char *command);
+
 
 #endif
