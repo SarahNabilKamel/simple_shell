@@ -1,5 +1,10 @@
 #include "shell.h"
 
+/**
+ * main - start point of our simple shell
+ *
+ * Return: Always 0
+ */
 
 int main()
 {
