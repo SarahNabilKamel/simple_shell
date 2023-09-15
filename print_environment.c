@@ -2,9 +2,10 @@
 
 void print_environment()
 {
+    int i;
     extern char **environ;
 
-    for (int i = 0; environ[i] != NULL; i++)
+    for ( i = 0; environ[i] != NULL; i++)
     {
         printf("%s\n", environ[i]);
     }
