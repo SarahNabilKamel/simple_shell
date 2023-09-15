@@ -1,3 +1,5 @@
+#include "shell.h"
+
 int main()
 {
     char *command_line = NULL;
