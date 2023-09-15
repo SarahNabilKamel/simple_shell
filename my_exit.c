@@ -1,4 +1,4 @@
-#include "shell.c"
+#include "shell.h"
 
 int is_exit_command(char *command_line)
 {
