@@ -1,31 +1,32 @@
 #include "shell.h"
-
-int main()
+/**
+ * main - start point our simple shell
+ *
+ * Return: Always 0
+ */
+int main(void)
 {
-    char* command_line = NULL;
-    size_t length = 0;
-    ssize_t read;
-    
+	char *command_line = NULL;
+	size_t length = 0;
+	ssize_t read;
 
-    while (1)
-    {
-        
-        prompt2();
-        
-        read = my_getline(&command_line, &length, stdin);
+	while (1)
+	{
 
-        if (read == -1)
-        {
-            break;
-        }
+		prompt2();
 
-        command_line[strcspn(command_line, "\n")] = '\0';
-        
-        exec3(command_line);
+		read = my_getline(&command_line, &length, stdin);
 
-        
-    }
+		if (read == -1)
+		{
+			break;
+		}
 
-    free(command_line);
-    return 0;
+		command_line[strcspn(command_line, "\n")] = '\0';
+		exec3(command_line);
+	}
+
+	free(command_line);
+	return (0);
 }
+

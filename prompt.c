@@ -1,7 +1,12 @@
 #include "shell.h"
-
-void prompt()
+/**
+ * prompt - start of line
+ *
+ * Return: void
+ */
+void prompt(void)
 {
-    printf("#cisfun$ ");
-    fflush(stdout);
+	printf("#cisfun$ ");
+	fflush(stdout);
 }
+
