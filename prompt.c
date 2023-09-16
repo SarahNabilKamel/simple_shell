@@ -4,9 +4,8 @@
  *
  * Return: void
  */
-void prompt(void)
+void prompt()
 {
-	printf("#cisfun$ ");
-	fflush(stdout);
+    printf("#cisfun$ ");
+    fflush(stdout);
 }
-

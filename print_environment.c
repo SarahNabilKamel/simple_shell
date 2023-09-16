@@ -4,13 +4,14 @@
  *
  * Return: void
  */
-void print_environment(void)
+void print_environment(char **envp)
 {
-	int i;
+    int i = 0;
+    char* env_var;
 
-	for (i = 0; environ[i] != NULL; i++)
-	{
-		printf("%s\n", environ[i]);
-	}
+    while (envp[i] != NULL) {
+        env_var = envp[i];
+        printf("%s\n", env_var);
+        i++;
+    }
 }
-

@@ -10,17 +10,15 @@
 
 #define COMMAND_MAX_LENGTH 1024
 
-void prompt(void);
+void prompt();
 ssize_t my_getline(char **lineptr, size_t *n, FILE *stream);
-void my_exec(char *command);
-void execwitharg(char *command);
-void prompt2(void);
+void my_exec( char *command );
+void execwitharg( char *command );
+void prompt2();
 void exec3(char *command);
-void print_environment(void);
+void print_environment();
 int is_env_command(char *command_line);
 int is_exit_command(char *command_line);
-	
-extern char **environ;
+
 
 #endif
-

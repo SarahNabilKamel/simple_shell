@@ -4,9 +4,7 @@
  *
  * Return: Always 0
  */
-#include "shell.h"
-
-int main(int argc, char *argv[], char *envp[])
+int main()
 {
     char *command_line = NULL;
     size_t length = 0;
@@ -29,14 +27,8 @@ int main(int argc, char *argv[], char *envp[])
         {
             break; 
         }
-        else if (is_env_command(command_line))
-        {
-            print_environment(envp); 
-        }
-        else
-        {
-            exec3(command_line); 
-        }
+
+        exec3(command_line);
     }
 
     free(command_line);
