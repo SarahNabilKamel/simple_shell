@@ -20,7 +20,7 @@ ssize_t my_getline(char **lineptr, size_t *n, FILE *stream)
         return -1;
     }
 
-   
+
     if (*lineptr == NULL || *n == 0) 
     {
         *n = 128;  

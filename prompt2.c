@@ -3,6 +3,6 @@
 
 void prompt2()
 {
-    printf(":) ");
+    printf("$ ");
     fflush(stdout);
 }

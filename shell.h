@@ -16,6 +16,9 @@ void my_exec( char *command );
 void execwitharg( char *command );
 void prompt2();
 void exec3(char *command);
+void print_environment();
+int is_env_command(char *command_line);
+int is_exit_command(char *command_line);
 
 
 #endif

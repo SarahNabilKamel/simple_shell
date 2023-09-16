@@ -90,7 +90,7 @@ void exec3(char *command_line)
             if (path_token == NULL)
             {
 
-                fprintf(stderr, "%s: command not found\n", command);
+                fprintf(stderr, " ./hsh: 1: %s : not found\n", command);
             }
 
             free(path_copy);
