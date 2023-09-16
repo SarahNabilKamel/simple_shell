@@ -20,6 +20,7 @@ void print_environment(void);
 int is_env_command(char *command_line);
 int is_exit_command(char *command_line);
 
+extern char **environ;
 
 #endif
 

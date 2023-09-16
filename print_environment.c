@@ -1,12 +1,16 @@
 #include "shell.h"
-
-void print_environment()
+/**
+ * print_environment - prints global environ variable
+ *
+ * Return: void
+ */
+void print_environment(void)
 {
-    int i;
-    extern char **environ;
+	int i;
 
-    for ( i = 0; environ[i] != NULL; i++)
-    {
-        printf("%s\n", environ[i]);
-    }
+	for (i = 0; environ[i] != NULL; i++)
+	{
+		printf("%s\n", environ[i]);
+	}
 }
+
