@@ -5,7 +5,7 @@
  * @args: Array to store the tokenized arguments
  * Return: Number of arguments
  */
-int tokenize(char *command_line, char **args)
+void tokenize(char *command_line, char **args)
 {
     char *token;
     int i = 0;
@@ -20,7 +20,6 @@ int tokenize(char *command_line, char **args)
     args[i] = NULL;
 
     free(command_line_copy);
-    return i;
 }
 
 /**
@@ -106,13 +105,12 @@ void exec3(char *command_line)
 {
     char *command;
     char **args;
-    int num_args;
 
     if (command_line == NULL)
         return;
 
     args = malloc((COMMAND_MAX_LENGTH + 1) * sizeof(char *));
-    num_args = tokenize(command_line, args);
+    tokenize(command_line, args);
     command = args[0];
 
     execute_command(command, args);
