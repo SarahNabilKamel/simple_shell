@@ -1,7 +1,7 @@
 #include "shell.h"
 /**
  * my_exec - our exectute command
- *@command: pointer to args
+ *@command: pointer to command line argument
  *
  * Return: void
  */
