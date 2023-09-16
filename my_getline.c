@@ -1,6 +1,12 @@
 #include "shell.h"
 
-
+/**
+ * my_getline - our getline commant
+ *@lineptr: pointer to begining of line
+ *@n: pointer to size of buffer
+ *@stream: pointer to FILE stream
+ * Return: -1 on error & number of characters when succes
+ */
 
 ssize_t my_getline(char **lineptr, size_t *n, FILE *stream)
 {
