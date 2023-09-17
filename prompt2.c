@@ -5,9 +5,8 @@
  *
  * Return: void
  */
-
-void prompt2()
+void prompt2(void)
 {
-    printf("$ ");
-    fflush(stdout);
+	printf("$ ");
+	fflush(stdout);
 }
