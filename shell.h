@@ -8,6 +8,8 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
+extern char **environ;
+
 #define COMMAND_MAX_LENGTH 1024
 
 void prompt(void);
@@ -20,12 +22,16 @@ int my_strcmp(const char *str1, const char *str2);
 void my_exec(char *command);
 void execwitharg(char *command);
 void prompt2(void);
-void exec3(char *command);
+void exec3(char **args, int *status, char *executable);
 void print_environment(char **envp);
 int is_env_command(char *command_line);
 int is_exit_command(char *command_line);
-void execute_command(char *command, char **args);
-void find_executable(char *command, char **args, char *path);
+void execute_command(char *command, char **args, int *status);
+void find_executable(char *command, char **args, char *path, int *status, char *prog);
 int is_whitespace(char c);
+
+char **f_token(char *command);
+void array_free(char **array);
+char *get_value(char *key);
 
 #endif

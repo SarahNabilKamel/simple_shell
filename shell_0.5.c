@@ -10,51 +10,44 @@
  */
 int main(
     int argc __attribute__((unused)),
-    char *argv[] __attribute__((unused)),
-    char *envp[]
+    char *argv[],
+	char *envp[]
 )
 {
+	char **args;
     char *command_line;
+	int status = 0;
     size_t length = 0;
     ssize_t read;
 
-    command_line = NULL;
-    
     while (1)
     {
+    	command_line = NULL;
         prompt2();
 
         read = getline(&command_line, &length, stdin);
-
         if (read == -1)
         {
-            break;
+			free(command_line);
+            exit(status);
         }
-
         command_line[read - 1] = '\0';
-
-        while (*command_line && is_whitespace(*command_line))
-        {
-            command_line++;
-        }
-
-        if (*command_line != '\0')
-        {
-            if (is_exit_command(command_line))
-            {
-                break;
-            }
-            else if (is_env_command(command_line))
-            {
-                print_environment(envp);
-            }
-            else
-            {
-                exec3(command_line);
-            }
-        }
+		args = f_token(command_line);
+		if (args)
+		{
+			if (is_exit_command(args[0]))
+			{
+				array_free(args);
+				free(command_line);
+				exit(status);
+			}
+			else if (is_env_command(args[0]))
+				print_environment(envp);
+			else
+				exec3(args, &status, argv[0]);
+		}
+    	free(command_line);
     }
 
-    free(command_line);
     return (0);
 }
