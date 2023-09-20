@@ -1,5 +1,10 @@
 #include "shell.h"
-
+/**
+ * f_token - tokenizes a commandline input into arguments
+ * @command_line: pointer to commandline input
+ *
+ * Return: array of strings, or NULL on failure
+ */
 char **f_token(char *command_line)
 {
 	int i = 0;
@@ -22,9 +27,14 @@ char **f_token(char *command_line)
 	}
 	args[i] = NULL;
 	free(cmd_copy);
-	return args;
+	return (args);
 }
-
+/**
+ * array_free - frees an array of strings
+ * @array: array free
+ *
+ * Return: void
+ */
 void array_free(char **array)
 {
 	int i = 0;
@@ -33,7 +43,13 @@ void array_free(char **array)
 		free(array[i++]);
 	free(array);
 }
-
+/**
+ * get_value - return  value of environment variable
+ * @key: name of the environment variable to get
+ *
+ * Return:  string containing  value of environment
+ * variable, or NULL if not found
+ */
 char *get_value(char *key)
 {
 	int i = 0;
@@ -60,3 +76,4 @@ char *get_value(char *key)
 	}
 	return (NULL);
 }
+
