@@ -22,16 +22,6 @@ size_t my_strcspn(const char *str, const char *reject)
 }
 
 
-size_t my_strlen(const char *str)
-{
-    const char *s = str;
-    while (*s)
-    {
-        s++;
-    }
-    return s - str;
-}
-
 char *my_strcpy(char *dest, const char *src)
 {
     char *d = dest;
@@ -73,6 +63,7 @@ int my_strcmp(const char *str1, const char *str2)
 
     return *(unsigned char *)str1 - *(unsigned char *)str2;
 }
+
 
 
 

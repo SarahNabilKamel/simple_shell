@@ -13,7 +13,7 @@ int main(void)
 
 	while (1)
 	{
-		prompt2();
+		prompt();
 
 		read = getline(&command_line, &length, stdin);
 

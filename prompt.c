@@ -5,7 +5,7 @@
  */
 void prompt(void)
 {
-	char prompt[] = "#cisfun$ ";
+	char prompt[] = ":) ";
     write(STDOUT_FILENO, prompt, sizeof(prompt) - 1);
 	fflush(stdout);
 }
