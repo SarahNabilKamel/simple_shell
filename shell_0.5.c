@@ -28,6 +28,7 @@ int main(
 
         if (read == -1)
         {
+	    free(command_line);
             break;
         }
 
