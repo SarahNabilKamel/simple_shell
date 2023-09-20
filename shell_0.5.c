@@ -9,43 +9,52 @@
  * Return: Always 0
  */
 int main(
-int argc __attribute__((unused)),
-char *argv[] __attribute__((unused)),
-char *envp[]
+    int argc __attribute__((unused)),
+    char *argv[] __attribute__((unused)),
+    char *envp[]
 )
 {
-	char *command_line;
-	size_t length = 0;
-	ssize_t read;
+    char *command_line;
+    size_t length = 0;
+    ssize_t read;
 
-	command_line = NULL;
-	while (1)
-	{
-		prompt2();
+    command_line = NULL;
+    
+    while (1)
+    {
+        prompt2();
 
-		read = getline(&command_line, &length, stdin);
+        read = getline(&command_line, &length, stdin);
 
-		if (read == -1)
-		{
-			break;
-		}
+        if (read == -1)
+        {
+            break;
+        }
 
-		command_line[my_strcspn(command_line, "\n")] = '\0';
+        command_line[read - 1] = '\0';
 
-		if (is_exit_command(command_line))
-		{
-			break;
-		}
-		else if (is_env_command(command_line))
-		{
-			print_environment(envp);
-		}
-		else
-		{
-			exec3(command_line);
-		}
-	}
+        while (*command_line && is_whitespace(*command_line))
+        {
+            command_line++;
+        }
 
-	free(command_line);
-	return (0);
+        if (*command_line != '\0')
+        {
+            if (is_exit_command(command_line))
+            {
+                break;
+            }
+            else if (is_env_command(command_line))
+            {
+                print_environment(envp);
+            }
+            else
+            {
+                exec3(command_line);
+            }
+        }
+    }
+
+    free(command_line);
+    return (0);
 }

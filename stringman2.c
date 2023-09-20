@@ -28,3 +28,7 @@ char *my_strdup(const char *str)
     return copy;
 }
 
+int is_whitespace(char c)
+{
+    return c == ' ' || c == '\t' || c == '\n' || c == '\r' || c == '\f' || c == '\v';
+}

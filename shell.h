@@ -26,5 +26,6 @@ int is_env_command(char *command_line);
 int is_exit_command(char *command_line);
 void execute_command(char *command, char **args);
 void find_executable(char *command, char **args, char *path);
+int is_whitespace(char c);
 
 #endif
