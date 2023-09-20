@@ -9,29 +9,28 @@
  * Return: Always 0
  */
 int main(
-    int argc __attribute__((unused)),
-    char *argv[],
-	char *envp[]
-)
+	int argc __attribute__((unused)),
+	char *argv[],
+	char *envp[])
 {
 	char **args;
-    char *command_line;
+	char *command_line;
 	int status = 0;
-    size_t length = 0;
-    ssize_t read;
+	size_t length = 0;
+	ssize_t read;
 
-    while (1)
-    {
-    	command_line = NULL;
-        prompt2();
+	while (1)
+	{
+		command_line = NULL;
+		prompt2();
 
-        read = getline(&command_line, &length, stdin);
-        if (read == -1)
-        {
+		read = getline(&command_line, &length, stdin);
+		if (read == -1)
+		{
 			free(command_line);
-            exit(status);
-        }
-        command_line[read - 1] = '\0';
+			exit(status);
+		}
+		command_line[read - 1] = '\0';
 		args = f_token(command_line);
 		if (args)
 		{
@@ -46,8 +45,9 @@ int main(
 			else
 				exec3(args, &status, argv[0]);
 		}
-    	free(command_line);
-    }
+		free(command_line);
+	}
 
-    return (0);
+	return (0);
 }
+
