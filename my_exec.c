@@ -1,6 +1,6 @@
 #include "shell.h"
 /**
- * my_exec - our exectute command line
+ * my_exec - our exectute command line with  No arguments
  *@command: pointer to command line argument
  *
  * Return: void
@@ -37,3 +37,4 @@ pid = fork();
 		}
 	}
 }
+

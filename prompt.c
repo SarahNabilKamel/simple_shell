@@ -1,6 +1,6 @@
 #include "shell.h"
 /**
- * prompt - start of line
+ * prompt - start of line shell
  * Return: void
  */
 void prompt(void)
@@ -9,3 +9,4 @@ void prompt(void)
     write(STDOUT_FILENO, prompt, sizeof(prompt) - 1);
 	fflush(stdout);
 }
+

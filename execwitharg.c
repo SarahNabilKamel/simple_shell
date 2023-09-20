@@ -1,6 +1,6 @@
 #include "shell.h"
 /**
- * execwitharg - our execute commandline with argument
+ * execwitharg - our execute commandline with argument like /bin/ls -l
  * @command: pointer to command line argument
  * Return: void
  */
@@ -35,3 +35,4 @@ pid = fork();
 		wait(NULL);
 	}
 }
+
