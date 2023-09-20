@@ -13,13 +13,13 @@ int main(void)
 	{
 		prompt2();
 
-		read = my_getline(&command_line, &length, stdin);
+		read = getline(&command_line, &length, stdin);
 		if (read == -1)
 		{
 			break;
 		}
 
-		command_line[strcspn(command_line, "\n")] = '\0';
+		command_line[my_strcspn(command_line, "\n")] = '\0';
 		if (is_exit_command(command_line))
 		{
 			break;

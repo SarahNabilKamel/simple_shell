@@ -7,5 +7,5 @@
  */
 int is_env_command(char *command_line)
 {
-	return (strcmp(command_line, "env") == 0);
+	return (my_strcmp(command_line, "env") == 0);
 }

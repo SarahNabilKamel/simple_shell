@@ -8,13 +8,14 @@
  */
 void print_environment(char **envp)
 {
-	int i = 0;
-	char *env_var;
+    int i = 0;
+    char *env_var;
 
-	while (envp[i] != NULL)
-	{
-		env_var = envp[i];
-		printf("%s\n", env_var);
-		i++;
-	}
+    while (envp[i] != NULL)
+    {
+        env_var = envp[i];
+        write(STDOUT_FILENO, env_var, strlen(env_var));
+        write(STDOUT_FILENO, "\n", 1);
+        i++;
+    }
 }

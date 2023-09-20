@@ -14,14 +14,14 @@ int main(void)
 	{
 		prompt();
 
-		read = my_getline(&command, &length, stdin);
+		read = getline(&command, &length, stdin);
 
 		if (read == -1)
 		{
 			break;
 		}
 
-		command[strcspn(command, "\n")] = 0;
+		command[my_strcspn(command, "\n")] = 0;
 
 		execwitharg(command);
 	}

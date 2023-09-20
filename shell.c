@@ -12,11 +12,11 @@ int main(void)
 	while (1)
 	{
 		prompt();
-		if (my_getline(&command, &command_len, stdin) == -1)
+		if (getline(&command, &command_len, stdin) == -1)
 		{
 			break;
 		}
-		command[strcspn(command, "\n")] = '\0';
+		command[my_strcspn(command, "\n")] = '\0';
 		my_exec(command);
 	}
 	free(command);

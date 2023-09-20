@@ -11,7 +11,12 @@
 #define COMMAND_MAX_LENGTH 1024
 
 void prompt(void);
-ssize_t my_getline(char **lineptr, size_t *n, FILE *stream);
+size_t my_strcspn(const char *str, const char *reject);
+size_t my_strlen(const char *str);
+char *my_strcpy(char *dest, const char *src);
+char *my_strcat(char *dest, const char *src);
+char *my_strdup(const char *str);
+int my_strcmp(const char *str1, const char *str2);
 void my_exec(char *command);
 void execwitharg(char *command);
 void prompt2(void);
