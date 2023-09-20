@@ -21,9 +21,8 @@ void execute_command(char *command, char **args, int *status)
 	else
 	{
 		waitpid(pid, status, 0);
-		if (WIFEXITED(*status)) {
+		if (WIFEXITED(*status))
 			*status = WEXITSTATUS(*status);
-		}
 	}
 }
 
@@ -36,7 +35,8 @@ void execute_command(char *command, char **args, int *status)
  * @prog: name of the program
  * Return: void
  */
-void find_executable(char *command, char **args, char *path, int *status, char *prog)
+void find_executable(char *command, char **args,
+					 char *path, int *status, char *prog)
 {
 	char *path_token, *full_path;
 
@@ -61,14 +61,14 @@ void find_executable(char *command, char **args, char *path, int *status, char *
 	}
 	write(STDERR_FILENO, prog, my_strlen(prog));
 	write(STDERR_FILENO, ": 1: ", my_strlen(": 1: "));
-    write(STDERR_FILENO, command, my_strlen(command));
-    write(STDERR_FILENO, ": not found\n", my_strlen(": not found\n"));
+	write(STDERR_FILENO, command, my_strlen(command));
+	write(STDERR_FILENO, ": not found\n", my_strlen(": not found\n"));
 	*status = 127;
 }
 
 /**
  * exec3 - Execute the command
- * @command_line: double Pointer to the argument
+ * @args: Pointer to the argument
  * @status: status
  * @executable: program name
  * Return: void
@@ -89,3 +89,4 @@ void exec3(char **args, int *status, char *executable)
 	}
 	array_free(args);
 }
+
